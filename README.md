@@ -6,7 +6,7 @@
    QuickCheck
 
 
-Topics mentioned in discussion that we should look into-
+# Topics mentioned in discussion that we should look into
 1. Consensus Protocols
 2. Cloud Haskell
 3. Concurrent Programming in Erlang
