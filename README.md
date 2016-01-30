@@ -1,15 +1,16 @@
 # distributed-systems-haskell
 
 # TODO
-1. literature review, write background and method paper
-2. collect 3-4 interesting examples in this repo + refactor them to support
+1. Literature review, write background and method paper
+2. Collect 3-4 interesting examples in this repo + refactor them to support
    QuickCheck
 
 
 # Topics mentioned in discussion that we should look into
-1. Consensus Protocols
-2. Cloud Haskell
-3. Concurrent Programming in Erlang
-4. Aphyr Jepsen
-5. Building Quick Check support on Distributed Systems
-6. Some form of parameterization
+- Consensus Protocols
+- [Cloud Haskell](http://haskell-distributed.github.io/)
+- Concurrent Programming in Erlang
+- Aphyr Jepsen
+- Building Quick Check support on Distributed Systems
+- Parameterise the example programs by a typeclass, then provide different instances for (a) actual running (b) testing/loggint/etc
+- perhaps this would be useful: https://hackage.haskell.org/package/MuCheck-QuickCheck
