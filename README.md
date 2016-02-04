@@ -14,3 +14,6 @@
 - Building Quick Check support on Distributed Systems
 - Parameterise the example programs by a typeclass, then provide different instances for (a) actual running (b) testing/loggint/etc
 - perhaps this would be useful: https://hackage.haskell.org/package/MuCheck-QuickCheck
+
+# References
+- http://research.microsoft.com/en-us/um/people/simonpj/papers/parallel/remote.pdf
