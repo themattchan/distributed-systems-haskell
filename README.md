@@ -1,5 +1,20 @@
 # distributed-systems-haskell
 
+# Run
+
+Configure stack
+
+```
+stack setup
+```
+
+Build
+
+```
+stack build
+stack exec chscheck
+```
+
 # TODO
 1. Literature review, write background and method paper
 2. Collect 3-4 interesting examples in this repo + refactor them to support
@@ -18,4 +33,3 @@
 # References
 - [Towards Haskell in the Cloud](http://research.microsoft.com/en-us/um/people/simonpj/papers/parallel/remote.pdf)
 - [Making reliable distributed systems in the presence of software errors](http://ftp.nsysu.edu.tw/FreeBSD/ports/distfiles/erlang/armstrong_thesis_2003.pdf) -- On building systems in Erlang (chapter 2)
-
