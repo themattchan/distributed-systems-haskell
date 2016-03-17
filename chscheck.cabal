@@ -1,4 +1,4 @@
-name:                cloudhs-check
+name:                chscheck
 version:             0.1.0.0
 synopsis:            QuickChecking Cloud Haskell
 description:         Please see README.md
@@ -34,11 +34,11 @@ Executable chscheck
   default-language:    Haskell2010
   ghc-options: -Werror -W  -fno-warn-unused-imports -fno-warn-dodgy-imports -fno-warn-deprecated-flags -fno-warn-deprecations -fno-warn-missing-methods -threaded
 
-test-suite new-template-test
+test-suite chscheck-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base
-                     , new-template
+                     , chscheck
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
