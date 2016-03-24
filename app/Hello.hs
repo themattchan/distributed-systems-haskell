@@ -1,4 +1,4 @@
-module Main where
+module Hello where
 
 import Control.Concurrent (threadDelay)
 import Control.Monad (forever)
