@@ -1,5 +1,7 @@
 # distributed-systems-haskell
 
+An experiment in shallow embeddings a la [Oleg's Typed Tagless Final Interpreters](http://okmij.org/ftp/tagless-final/course/)
+
 # Run
 
 Configure stack
@@ -12,14 +14,15 @@ Build
 
 ```
 stack build
-stack exec chscheck
+stack exec run-ch
 ```
 
 # TODO
-1. Literature review, write background and method paper
-2. Collect 3-4 interesting examples in this repo + refactor them to support
-   QuickCheck
-
+1. Build rudimentary DSL
+2. Add more examples
+3. Rewrite examples in DSL, run using CH interpreter, check if equal to original program
+4. Write different interpreters/instances (e.g. logging), run examples.
+5. Generate arbitrary programs?? 
 
 # Topics mentioned in discussion that we should look into
 - Consensus Protocols
