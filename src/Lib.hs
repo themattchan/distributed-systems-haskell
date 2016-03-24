@@ -1,6 +1,6 @@
 module Lib
-    ( someFunc
+    (
     ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import Control.Distributed.Process hiding (Message)
+import Control.Distributed.Process.Closure

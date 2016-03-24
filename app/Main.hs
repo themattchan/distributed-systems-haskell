@@ -14,11 +14,11 @@ logMessage msg = say $ "handling " ++ msg
 
 main :: IO ()
 main = do
-  Right t <- createTransport "127.0.0.1" "10501" defaultTCPParameters
+  Right t <- createTransport "127.0.0.1" "10503" defaultTCPParameters
   node <- newLocalNode t initRemoteTable
   runProcess node $ do
     -- Spawn another worker on the local node
-    echoPid <- spawnLocal $ forever $ do
+    echoPid <- spawnLocal $ forever $
       -- Test our matches in order against each message in the queue
       receiveWait [match logMessage, match replyBack]
 
