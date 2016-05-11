@@ -144,9 +144,25 @@ class Chan thingy where
 class Msg stx where
   receiveWait ::
 
+
+
 -----------------------
 
-Should get this:
+-- instances for ProcessM are just the library definitions
+instance Basic ProcessM where
+  send = CH.send
+  expect = CH.expect
+
+instance Chan ProcessM where
+  newChan = CH.newChan
+  sendChan = CH.sendChan
+  receiveChan = CH.receiveChan
+  mergePortsBiased = CH.mergePortsBiased
+  mergePortsRR = CH.mergePortsRR
+
+-----------------------
+
+Should be able to do this:
 
 ping :: (Basic ProcessM, Chan ProcessM, Msg ProcessM ...) => ProcessM ()
 ping = do { Pong partner <-expect
