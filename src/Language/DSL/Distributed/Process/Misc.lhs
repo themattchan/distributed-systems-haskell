@@ -146,3 +146,25 @@ class Msg stx where
 
 -----------------------
 
+Should get this:
+
+ping :: (Basic ProcessM, Chan ProcessM, Msg ProcessM ...) => ProcessM ()
+ping = do { Pong partner <-expect
+          ; self <-getSelfPid
+          ; send partner (Ping self )
+          ; ping }
+
+
+ping :: (Basic ProcessCheck, Chan ProcessCheck, Msg ProcessCheck ...) => ProcessCheck ()
+ping = do { Pong partner <-expect
+          ; self <-getSelfPid
+          ; send partner (Ping self )
+          ; ping }
+
+etc etc
+
+Questions:
+1. Is this what we want?
+2. Semantics are implemented in the instances, isn't this project all about running the "same semantics" for the combinators over different result types?
+3. How to reuse the definitions?
+4. Is the parametrisation recycling too much of the library code?
