@@ -120,3 +120,29 @@ decode :: Binary a => ByteString -> a
 
 
 
+What about a series of typeclasses, each implementing a part of the language? How to combine?
+
+class Basic thingy where
+  -- send :: Serializable a => ProcessId -> a
+  --      -> ProcessM ()
+  -- expect :: Serializable a
+  --        => ProcessM a
+
+  send :: Serializable a => ProcessId -> a
+       -> thingy ()
+  expect :: Serializable a
+         => thingy a
+
+
+class Chan thingy where
+  newChan :: Serializable a => thingy (SendPort a, ReceivePort a)
+  sendChan :: Serializable a => SendPort a -> a -> thingy ()
+  receiveChan :: Serializable a => ReceivePort a -> thingy a
+  mergePortsBiased :: Serializable a => [ReceivePort a] -> thingy (ReceivePort a)
+  mergePortsRR :: Serializable a => [ReceivePort a] -> thingy (ReceivePort a)
+
+class Msg stx where
+  receiveWait ::
+
+-----------------------
+
