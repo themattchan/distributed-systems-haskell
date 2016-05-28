@@ -5,20 +5,20 @@ import qualified Control.Distributed.Process.Node as CHN
 -- | Implement the language wrt another type, that hopefully obeys the original
 -- semantics of the combinators in the Cloud Haskell library
 
-data CheckProc = undefined
+data ProcessC = ProcessC {
 
-instance Basic ProcessM where
+instance Basic Process where
   send    = CH.send
   expect  = CH.expect
 
-instance Chan ProcessM where
+instance Chan Process where
   newChan          = CH.newChan
   sendChan         = CH.sendChan
   receiveChan      = CH.receiveChan
   mergePortsBiased = CH.mergePortsBiased
   mergePortsRR     = CH.mergePortsRR
 
-instance Msg ProcessM where
+instance Msg Process where
   receiveWait    = CH.receiveWait
   receiveTimeout = CH.receiveTimeout
   match          = CH.match
@@ -26,7 +26,7 @@ instance Msg ProcessM where
   matchUnknown   = CH.matchUnknown
 
 -- Process management
-class ProcMan ProcessM where
+instance ProcMan Process where
   spawn          = CH.spawn
   call           = CH.call
   terminate      = CH.terminate
@@ -34,16 +34,16 @@ class ProcMan ProcessM where
   getSelfNode    = CH.getSelfNode
 
 -- Process monitoring
-class ProcMon ProcessM where
+instance ProcMon Process where
   linkProcess     = CH.linkProcess
   monitorProcess  = CH.monitorProcess
 
 -- Initialization
-class Init ProcessM where
+instance Init Process where
   runRemote      = CH.runRemote
   getPeers       = CH.getPeers
   findPeerByRole = CH.findPeerByRole
 
 -- Logging
-class Log ProcessM where
+instance Log Process where
   say = CH.say

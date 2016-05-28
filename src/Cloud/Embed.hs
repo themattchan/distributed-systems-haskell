@@ -1,6 +1,17 @@
 module Cloud.Embed where
-import qualified Control.Distributed.Process as CH
-import qualified Control.Distributed.Process.Node as CHN
+import Control.Distributed.Process
+  ( Serializable(..)
+  , ProcessId(..)
+  , NodeId(..)
+  , SendPort(..)
+  , ReceivePort(..)
+  , Match(..)
+  , MonitorAction(..)
+  , PeerInfo(..)
+  )
+import Control.Distributed.Static (RemoteTable, Closure)
+
+--import qualified Control.Distributed.Process.Node as CHN
 
 -- | Lift the Cloud Haskell language into typeclasses, abstracting
 -- | over the ProcessM type
@@ -19,11 +30,11 @@ class Chan thingy where
 
 -- Messaging
 class Msg thingy where
-  receiveWait    :: [MatchM q ()] -> thingy q
-  receiveTimeout :: Int -> [MatchM q ()] -> thingy (Maybe q)
-  match          :: Serializable a => (a -> thingy q) ->MatchM q ()
+  receiveWait    :: [Match q ()] -> thingy q
+  receiveTimeout :: Int -> [Match q ()] -> thingy (Maybe q)
+  match          :: Serializable a => (a -> thingy q) -> Match q ()
   matchIf        :: Serializable a => (a -> Bool) -> (a -> thingy q) -> thingy q ()
-  matchUnknown   :: thingy q -> MatchM q ()
+  matchUnknown   :: thingy q -> Match q ()
 
 -- Process management
 class ProcMan thingy where
@@ -35,13 +46,13 @@ class ProcMan thingy where
 
 -- Process monitoring
 class ProcMon thingy where
-  linkProcess :: ProcessId -> thingy ()
+  linkProcess    :: ProcessId -> thingy ()
   monitorProcess :: ProcessId -> ProcessId -> MonitorAction -> thingy ()
 
 -- Initialization
-class Init thingy where
+class Init thingy io where
   -- type RemoteTable = [(String,Dynamic)]
-  runRemote :: Maybe FilePath -> [RemoteTable] -> ( String -> thingy ()) -> IO ()
+  runRemote :: Maybe FilePath -> [RemoteTable] -> (String -> thingy ()) -> io ()
   -- type PeerInfo = Map String [NodeId]
   getPeers :: thingy PeerInfo
   findPeerByRole :: PeerInfo -> String -> [NodeId]
