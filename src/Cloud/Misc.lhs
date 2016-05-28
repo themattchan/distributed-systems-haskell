@@ -1,32 +1,9 @@
 \documentclass{article}
 %include polycode.fmt
-\usepackage{filecontents}
-
-\begin{filecontents}{\jobname.bib}
-
-@inproceedings{towards,
-  title={Towards Haskell in the cloud},
-  author={Epstein, J. and Black, A.P. and Peyton-Jones, S.},
-  booktitle={ACM SIGPLAN Notices},
-  volume={46},
-  number={12},
-  pages={118--129},
-  year={2011},
-  organization={ACM},
-  ee={http://research.microsoft.com/en-us/um/people/simonpj/papers/parallel/remote.pdf}
-}
-
-@misc{cloudhs,
-  title = {Cloud Haskell 0.6.1}
-  howpublished = {https://hackage.haskell.org/package/distributed-process-0.6.1/docs/Control-Distributed-Process.html}
-}
-
-\end{filecontents}
-
-\usepackage{natbib}
-\bibliographystyle{plainnat}
-\bibliography{\jobname}
-
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{references.bib}
 
 \long\def\ignore#1{}
 
@@ -67,11 +44,10 @@ typeclass.
 Can think of the various derived typeclasses of Process as the shallow embedding
 itself... override default defns? Cannot override IO
 
-Paper: http://research.microsoft.com/en-us/um/people/simonpj/papers/parallel/remote.pdf
 Look at figure 2
 
 Example
-
+\begin{code}
 send :: Serializable a => ProcessId -> a -> ProcessM ()
 expect :: Serializable a => ProcessM a
 
@@ -84,6 +60,7 @@ ping = do { Pong partner <-expect
           ; self <-getSelfPid
           ; send partner (Ping self )
           ; ping }
+\end{code}
 
 Defining the DSL
 
@@ -212,5 +189,9 @@ Questions:
 2. Semantics are implemented in the instances, isn't this project all about running the "same semantics" for the combinators over different result types?
 3. How to reuse the definitions?
 4. Is the parametrisation recycling too much of the library code?
+
+
+\nocite{*}
+\printbibliography
 
 \end{document}

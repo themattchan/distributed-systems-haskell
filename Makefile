@@ -1,7 +1,5 @@
 pdf:
-	@(cd doc; \
-	lhs2TeX -o report.tex ../src/Cloud/Misc.lhs; \
-	latexmk -pdf report.tex)
+	@(cd doc; make new)
 
 clean:
-	rm -f doc/*
+	@(cd doc; make clean)
