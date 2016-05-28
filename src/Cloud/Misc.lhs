@@ -125,50 +125,53 @@ class Log thingy where
 
 Step 2. Instances for ProcessM are just the library definitions
 
-> instance Basic ProcessM where
->   send    = CH.send
->   expect  = CH.expect
+\begin{code}
+instance Basic ProcessM where
+  send    = CH.send
+  expect  = CH.expect
 
-> instance Chan ProcessM where
->   newChan          = CH.newChan
->   sendChan         = CH.sendChan
->   receiveChan      = CH.receiveChan
->   mergePortsBiased = CH.mergePortsBiased
->   mergePortsRR     = CH.mergePortsRR
+instance Chan ProcessM where
+  newChan          = CH.newChan
+  sendChan         = CH.sendChan
+  receiveChan      = CH.receiveChan
+  mergePortsBiased = CH.mergePortsBiased
+  mergePortsRR     = CH.mergePortsRR
 
-> instance Msg ProcessM where
->   receiveWait    = CH.receiveWait
->   receiveTimeout = CH.receiveTimeout
->   match          = CH.match
->   matchIf        = CH.matchIf
->   matchUnknown   = CH.matchUnknown
+instance Msg ProcessM where
+  receiveWait    = CH.receiveWait
+  receiveTimeout = CH.receiveTimeout
+  match          = CH.match
+  matchIf        = CH.matchIf
+  matchUnknown   = CH.matchUnknown
 
-> -- Process management
-> class ProcMan ProcessM where
->   spawn          = CH.spawn
->   call           = CH.call
->   terminate      = CH.terminate
->   getSelfPid     = CH.getSelfPid
->   getSelfNode    = CH.getSelfNode
+-- Process management
+class ProcMan ProcessM where
+  spawn          = CH.spawn
+  call           = CH.call
+  terminate      = CH.terminate
+  getSelfPid     = CH.getSelfPid
+  getSelfNode    = CH.getSelfNode
 
-> -- Process monitoring
-> class ProcMon ProcessM where
->   linkProcess     = CH.linkProcess
->   monitorProcess  = CH.monitorProcess
+-- Process monitoring
+class ProcMon ProcessM where
+  linkProcess     = CH.linkProcess
+  monitorProcess  = CH.monitorProcess
 
-> -- Initialization
-> class Init ProcessM where
->   runRemote      = CH.runRemote
->   getPeers       = CH.getPeers
->   findPeerByRole = CH.findPeerByRole
+-- Initialization
+class Init ProcessM where
+  runRemote      = CH.runRemote
+  getPeers       = CH.getPeers
+  findPeerByRole = CH.findPeerByRole
 
-> -- Logging
-> class Log ProcessM where
->   say = = CH.say
+-- Logging
+class Log ProcessM where
+  say = CH.say
+\end{code}
 -----------------------
 
 Should be able to do this:
 
+\begin{code}
 ping :: (Basic ProcessM, Chan ProcessM, Msg ProcessM ...) => ProcessM ()
 ping = do { Pong partner <-expect
           ; self <- getSelfPid
@@ -181,8 +184,7 @@ ping = do { Pong partner <-expect
           ; self <-getSelfPid
           ; send partner (Ping self )
           ; ping }
-
-etc etc
+\end{code}
 
 Questions:
 1. Is this what we want?
