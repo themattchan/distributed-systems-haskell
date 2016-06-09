@@ -2,10 +2,14 @@ module Cloud.Check where
 import qualified Control.Distributed.Process as CH
 import qualified Control.Distributed.Process.Node as CHN
 
+import Cloud.Embed
 -- | Implement the language wrt another type, that hopefully obeys the original
 -- semantics of the combinators in the Cloud Haskell library
 
-data ProcessC = ProcessC {
+--data ProcessC = ProcessC {
+{-
+
+
 
 instance Basic Process where
   send    = CH.send
@@ -47,3 +51,6 @@ instance Init Process where
 -- Logging
 instance Log Process where
   say = CH.say
+
+
+-}

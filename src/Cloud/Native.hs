@@ -2,20 +2,21 @@ module Cloud.Native where
 import qualified Control.Distributed.Process as CH
 import qualified Control.Distributed.Process.Node as CHN
 
+import Cloud.Embed
 -- | Map the lifted language back to their implementations
 
-instance Basic ProcessM where
+instance Basic CH.Process where
   send    = CH.send
   expect  = CH.expect
 
-instance Chan ProcessM where
+instance Chan CH.Process where
   newChan          = CH.newChan
   sendChan         = CH.sendChan
   receiveChan      = CH.receiveChan
   mergePortsBiased = CH.mergePortsBiased
   mergePortsRR     = CH.mergePortsRR
 
-instance Msg ProcessM where
+instance Msg CH.Process where
   receiveWait    = CH.receiveWait
   receiveTimeout = CH.receiveTimeout
   match          = CH.match
@@ -23,7 +24,7 @@ instance Msg ProcessM where
   matchUnknown   = CH.matchUnknown
 
 -- Process management
-class ProcMan ProcessM where
+instance ProcMan CH.Process where
   spawn          = CH.spawn
   call           = CH.call
   terminate      = CH.terminate
@@ -31,16 +32,16 @@ class ProcMan ProcessM where
   getSelfNode    = CH.getSelfNode
 
 -- Process monitoring
-class ProcMon ProcessM where
-  linkProcess     = CH.linkProcess
-  monitorProcess  = CH.monitorProcess
+-- instance ProcMon CH.Process where
+--   linkProcess     = CH.linkProcess
+-- --  monitorProcess  = CH.monitorProcess
 
--- Initialization
-class Init ProcessM where
-  runRemote      = CH.runRemote
-  getPeers       = CH.getPeers
-  findPeerByRole = CH.findPeerByRole
+-- -- Initialization
+-- instance Init CH.Process where
+--   runRemote      = CH.runRemote
+-- --  getPeers       = CH.getPeers
+-- --  findPeerByRole = CH.findPeerByRole
 
 -- Logging
-class Log ProcessM where
+instance Log CH.Process where
   say = CH.say
